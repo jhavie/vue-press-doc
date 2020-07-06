@@ -75,35 +75,35 @@ Divider
             "type": "button",
             "vmname": "btn1",
             "config": {
-                "text": "btn1-name"
+                "text": "btn1-name",
+                "on": {
+                    "click": "testFunc"
+                },
+                "style": {
+                    "color": "white"
+                },
+                "props": {
+                    "type": "primary"
+                }
             }
-        },{
-            "label": "选择器",
-            "type": "select",
-            "vmname": "sl1",
-            "config": {
-                
-            }
-        },{
+        },
+        {
             "label": "输入框",
             "type": "input",
-            "vmname": "ipt1",
+            "vmname": "input1",
             "config": {
-
-            }
-        },{
-            "label": "开关",
-            "type": "switch",
-            "vmname": "swt1",
-            "config": {
-
-            }
-        },{
-            "label": "日期选择器",
-            "type": "datepicker",
-            "vmname": "dp1",
-            "config": {
-
+                "on": {
+                    "click": "testFunc"
+                },
+                "style": {
+                    "color": "white"
+                },
+                "props": {
+                    "show-word-limit": true
+                },
+                "attrs": {
+                    "placeholder": "请输入."
+                }
             }
         }
     ]

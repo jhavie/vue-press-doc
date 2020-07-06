@@ -1,0 +1,72 @@
+{
+    "layout": "horizontal",
+    "type": "default | modal",
+    "col": 3,
+    "row": 4,
+    "width": "100px",
+    "height": "300px",
+    "form": [
+        {
+            "label": "按钮",
+            "type": "button",
+            "config": {
+                "text": "button-name",
+                "on": {
+                    "click": "testFunc"
+                },
+                "style": {
+                    "color": "white"
+                },
+                "props": {
+                    "type": "primary"
+                }
+            }
+        },
+        {
+            "label": "输入框",
+            "type": "input",
+            "vmname": "input1",
+            "config": {
+                "on": {
+                    "blur": "testFunc"
+                },
+                "style": {
+                    "color": "white"
+                },
+                "props": {
+                    "show-word-limit": true
+                },
+                "attrs": {
+                    "placeholder": "请输入."
+                }
+            }
+        },
+        {
+            "label": "选择器",
+            "type": "select",
+            "vmname": "select1",
+            "config": {
+                "on": {
+                    "blur": "testFunc"
+                },
+                "props": {
+                },
+                "attrs": {
+                    "placeholder": "请选择"
+                },
+                "child": [{
+                    "type": "options",
+                    "config": {
+                        "options": [{
+                            "value": "选项1",
+                            "label": "黄金糕"
+                        }, {
+                            "value": "选项2",
+                            "label": "双皮奶"
+                        }]
+                    }
+                }]
+            }
+        }
+    ]
+}
