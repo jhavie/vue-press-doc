@@ -54,18 +54,36 @@
                 "attrs": {
                     "placeholder": "请选择"
                 },
-                "child": [{
-                    "type": "options",
-                    "config": {
-                        "options": [{
-                            "value": "选项1",
-                            "label": "黄金糕"
-                        }, {
-                            "value": "选项2",
-                            "label": "双皮奶"
-                        }]
+                "child": [
+                    {
+                        "label": "选项1",
+                        "value": "值1",
+                        "type": "option",
+                        "props": {
+                            "label": "选项1",
+                            "value": "值1"
+                        },
+                        "config": {
+                            "on": {
+                                "click": "testFunc"
+                            }
+                        }
+                    },
+                    {
+                        "label": "选项2",
+                        "value": "值2",
+                        "type": "option",
+                        "props": {
+                            "label": "选项2",
+                            "value": "值2"
+                        },
+                        "config": {
+                            "on": {
+                                "click": "testFunc"
+                            }
+                        }
                     }
-                }]
+                ]
             }
         }
     ]

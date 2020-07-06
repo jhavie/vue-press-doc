@@ -2,48 +2,52 @@
 export default {
     props: ['ctrl', 'fn', 'formData'],
     render(h){
-        let config = this.ctrl.config
         const self = this
-        const renderMap = {
-            0: h(this.renderType),
-            1: h(this.renderType, {
-                    style: config.style,
-                    props: config.props,
-                    attrs: config.attrs,
-                    on: this.eventMap(config.on)
-                }, config.text),
-            2: h(this.renderType, {
-                    style: config.style,
-                    props: {
-                        ...config.props,
-                        value: self.formData[self.ctrl.vmname]
-                    },
-                    attrs: config.attrs,
-                    on: {
-                        ...this.eventMap(config.on),
-                        input: (event) => {
-                            self.formData[self.ctrl.vmname] = event
-                            this.$forceUpdate()
-                        }
-                    }
-                })
-        }
-        // return renderMap[3]
-        console.log(this.ctrl)
-        return renderMap[this.renderTypeCode]
+        const ctrl = self.ctrl
+        return this.renderMapFn(h, self, ctrl)
+        // let config = this.ctrl.config
+        // const self = this
+        // return renderMap[this.renderTypeCode]
     },
     data() {
         return {
-            value: ''
+            childCtrl: ''
         }
     },
     methods: {
-        renderMap() {
-
+        renderMapFn(h, self, ctrl){
+            const that = this
+            console.log(ctrl)
+            const renderMap = {
+                0: h(self.renderType(ctrl)),
+                1: h(self.renderType(ctrl), {
+                        style: ctrl.config.style,
+                        props: ctrl.config.props,
+                        attrs: ctrl.config.attrs,
+                        on: self.eventMap(ctrl.config.on)
+                    }, ctrl.config.text),
+                2: h(self.renderType(ctrl), {
+                        style: ctrl.config.style,
+                        props: {
+                            ...ctrl.config.props,
+                            value: self.formData[ctrl.vmname]
+                        },
+                        attrs: ctrl.config.attrs,
+                        on: {
+                            ...self.eventMap(ctrl.config.on),
+                            input: (event) => {
+                                self.formData[ctrl.vmname] = event
+                                self.$forceUpdate()
+                            }
+                        }
+                    }, ctrl.config.hasOwnProperty('child') ? [this.renderMapFn(h, that, ctrl.config.child[0])] : [])
+            }
+            return renderMap[this.renderTypeCode]
         },
-        eventMap(on, self) {
+        eventMap(on) {
+            if(!on) return {}
             //支持传String | Function两种方式
-            let _on = {}
+            const _on = {}
             Object.keys(on).forEach( key => {
                     if(typeof on[key] === 'function'){
                         _on[key] = on[key]
@@ -54,14 +58,14 @@ export default {
             )
             return _on
         },
+        renderType(ctrl){
+            return `el-${ctrl.type}`
+        },
         childRender(){
             let child = this.ctrl.config.child
         }
     },
     computed: {
-        renderType(){
-            return `el-${this.ctrl.type}`
-        },
         childRenderType(){
             console.log(this.ctrl)
         },
@@ -70,7 +74,7 @@ export default {
             //code 1 simple ex.button
             //code 2 mutiple ex.select
             const simple = [ 'button' ]
-            const mutiple = [ 'input', 'select' ]
+            const mutiple = [ 'input', 'select', 'option']
             if(simple.includes(this.ctrl.type)) return 1
             else if(mutiple.includes(this.ctrl.type)) return 2
             else return 0
